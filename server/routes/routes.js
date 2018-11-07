@@ -10,7 +10,7 @@ routes.route('/all').get((req, res, next) => {
     })
 })
 
-routes.route('add/').post((req, res) => {
+routes.route('/add').post((req, res) => {
     ToDo.create({
             title: req.body.title,
             status: false

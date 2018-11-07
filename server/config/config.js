@@ -1,4 +1,4 @@
 module.exports = {
-    DB: 'mongodb://admin:Denis1299B@ds143030.mlab.com:43030/t_db',
+    DB: process.env.MONGO_URL,
     port: 5000
 }
