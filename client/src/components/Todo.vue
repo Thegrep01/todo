@@ -1,13 +1,19 @@
+<style scoped>
+  .app {
+    margin-left: 41%;
+  }
+</style>
+
 <template>
   <div class="app">
-    <div class="container">
+    <div>
         <h1>To-Do List!</h1>
         <form v-on:submit.prevent="submitToDo">
             <input type="text" v-model="Todo.title"/>
             <button class="btn primary-btn">Add</button>
         </form>
        </div>
-       <div class="container">
+       <div>
          <ul>
            <li v-for="todo in todos" :key="todo.id">
              <p>
