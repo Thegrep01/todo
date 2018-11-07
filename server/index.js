@@ -21,6 +21,9 @@ mongoose.connect(config.DB)
 app.use(morgan('dev'))
 
 app.use(parser.json())
+app.use(parser.urlencoded({
+    extended: false
+}));
 
 const port = config.port || 5000
 

@@ -1,16 +1,16 @@
 <template>
-  <div class="app">
-    <div class="container">
-       <h1 class="center-align teal-text">To-Do List!</h1>
-    </div> 
-  </div>
+  <to-do/>
 </template>
 
-<script>
 
+<script>
+import ToDo from "./components/Todo.vue";
 export default {
   name: "App",
-  data(){return{}}
+  data() {
+    return {};
+  },
+  components: { ToDo }
 };
 </script>
 

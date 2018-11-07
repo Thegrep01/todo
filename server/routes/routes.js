@@ -11,6 +11,7 @@ routes.route('/all').get((req, res, next) => {
 })
 
 routes.route('/add').post((req, res) => {
+    console.log(req.body);
     ToDo.create({
             title: req.body.title,
             status: false
