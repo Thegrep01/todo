@@ -4,16 +4,13 @@ const routes = express.Router()
 
 const ToDo = require('../models/models')
 
-routes.route('/').get((req, res, next) => {
-    ToDo.find((err, todos => {
-        if (err) {
-            return next(new Error(err))
-        }
+routes.route('/all').get((req, res, next) => {
+    ToDo.find({}, (err, todos) => {
         res.json(todos)
-    }))
+    })
 })
 
-routes.route('/').post((req, res) => {
+routes.route('add/').post((req, res) => {
     ToDo.create({
             title: req.body.title,
             status: false
@@ -26,31 +23,24 @@ routes.route('/').post((req, res) => {
         })
 })
 
-routes.route('/:id').post((req, res, next) => {
-    let id = req.body._id
-
-    ToDo.findByID(id, (err, todo) => {
-        if (err) {
-            return next(new Error(err))
-        }
+routes.route('/update/:id').post((req, res, next) => {
+    let id = req.params.id.trim()
+    ToDo.findById(id, (err, todo) => {
+        if (err) return handleError(err);
         todo.title = req.body.title
         todo.status = req.body.status
-
-        todo.save({
-            function (err, todo) {
-                if (err) {
-                    res.status(400).send('Update error!')
-                }
-                res.status(200).json(todo)
-            }
-        })
+        todo.save((err, updatedtodo) => {
+            if (err) return handleError(err);
+            res.send(updatedtodo);
+        });
     })
+
 })
 
-routes.route('/:id').get((req, res, next) => {
-    let id = req.body._id
+routes.route('delete/:id').get((req, res, next) => {
+    let id = req.params.id.trim()
 
-    ToDo.finByIdAndRemove(id, (err, todo) => {
+    ToDo.findByIdAndRemove(id, (err, todo) => {
         if (err) {
             return next(new Error(err))
         }

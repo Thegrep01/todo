@@ -1,6 +1,6 @@
-const mangoose = require('mangoose')
+const mongoose = require('mongoose')
 
-const todo = new mangoose.Schema({
+const todo = new mongoose.Schema({
     title: {
         type: String
     },
@@ -10,4 +10,4 @@ const todo = new mangoose.Schema({
     }
 })
 
-module.exports = mangoose.model('Todo', todo)
+module.exports = mongoose.model('Todo', todo)
