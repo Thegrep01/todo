@@ -1,4 +1,4 @@
 module.exports = {
-    DB: process.env.MONGO_URL,
+    DB: process.env.MONGO_URI,
     port: 5000
 }

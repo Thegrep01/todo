@@ -1,7 +1,10 @@
 <style scoped>
-  .app {
-    margin-left: 41%;
-  }
+.app {
+  margin-left: 41%;
+}
+ul {
+  list-style: none;
+}
 </style>
 
 <template>
@@ -18,8 +21,11 @@
            <li v-for="todo in todos" :key="todo.id">
              <p>
                <label>
-                 <input type="checkbox" :checked=todo.status @change="todo.status = !todo.status"/>
+                 <input type="checkbox" :checked=todo.status @change="Update(todo)"/>
                  <span>{{todo.title}}</span>
+                 <a @click.prevent="DeleteTodo(todo)">
+                   <font-awesome-icon icon="trash"/>
+                 </a>
                </label>
              </p>
            </li>
@@ -36,6 +42,7 @@ export default {
   data() {
     return {
       Todo: {
+        _id: "",
         title: "",
         status: false
       },
@@ -48,7 +55,7 @@ export default {
   methods: {
     submitToDo() {
       if (this.Todo.title != "") {
-        let url = "https://server-hfdjjaiktt.now.sh/home/add";
+        let url = "https://server-qquiodzkpz.now.sh/home/add";
         axios
           .post(url, this.Todo)
           .then(res => {
@@ -62,10 +69,35 @@ export default {
       }
     },
     getAll() {
-      let url = "https://server-hfdjjaiktt.now.sh/home/all";
+      let url = "https://server-qquiodzkpz.now.sh/home/all";
       axios.get(url).then(res => {
         this.todos = res.data;
       });
+    },
+    Update(todo) {
+      let url = "https://server-qquiodzkpz.now.sh/home/update/";
+      todo.status = !todo.status;
+      axios
+        .post(url + todo._id, todo)
+        .then(res => {
+          console.log(res);
+          this.getAll();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    DeleteTodo(todo) {
+      let url = "https://server-qquiodzkpz.now.sh/home/delete/";
+      axios
+        .get(url + todo._id)
+        .then(res => {
+          console.log(res);
+          this.getAll();
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };

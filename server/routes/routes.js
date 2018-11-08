@@ -38,7 +38,7 @@ routes.route('/update/:id').post((req, res, next) => {
 
 })
 
-routes.route('delete/:id').get((req, res, next) => {
+routes.route('/delete/:id').get((req, res, next) => {
     let id = req.params.id.trim()
 
     ToDo.findByIdAndRemove(id, (err, todo) => {
